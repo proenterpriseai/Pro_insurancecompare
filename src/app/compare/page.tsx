@@ -60,8 +60,8 @@ export default function ComparePage() {
       if (selectedType) filtered = filtered.filter((p) => p.insurance_type === selectedType);
       const [sortField, sortOrder] = sortBy.split(":");
       filtered = [...filtered].sort((a, b) => {
-        const av = (a as Record<string, unknown>)[sortField] as number ?? 0;
-        const bv = (b as Record<string, unknown>)[sortField] as number ?? 0;
+        const av = (a as unknown as Record<string, unknown>)[sortField] as number ?? 0;
+        const bv = (b as unknown as Record<string, unknown>)[sortField] as number ?? 0;
         return sortOrder === "asc" ? av - bv : bv - av;
       });
       setProducts(filtered);
