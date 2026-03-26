@@ -24,10 +24,10 @@ export default function ComparisonTable({ products, onClose }: ComparisonTablePr
   const getHighlight = (row: (typeof rows)[number], product: Product) => {
     if (!("highlight" in row) || !row.highlight) return "";
     const values = products
-      .map((p) => (p as Record<string, unknown>)[row.key] as number | null)
+      .map((p) => (p as unknown as Record<string, unknown>)[row.key] as number | null)
       .filter((v): v is number => v != null);
     if (values.length === 0) return "";
-    const val = (product as Record<string, unknown>)[row.key] as number | null;
+    const val = (product as unknown as Record<string, unknown>)[row.key] as number | null;
     if (val == null) return "";
     if (row.highlight === "lowest" && val === Math.min(...values))
       return "bg-green-50 text-green-700 font-bold";
@@ -75,7 +75,7 @@ export default function ComparisonTable({ products, onClose }: ComparisonTablePr
                     {row.label}
                   </td>
                   {products.map((p) => {
-                    const val = (p as Record<string, unknown>)[row.key];
+                    const val = (p as unknown as Record<string, unknown>)[row.key];
                     let display: string;
                     if (val == null) {
                       display = "-";
